@@ -1,0 +1,62 @@
+﻿@model IEnumerable<CountryCityInformationSystemApp.Models.Country>
+@{
+    ViewBag.Title = "Index";
+    var counter = ViewBag.Total;
+
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<br /><br /> @using (Html.BeginForm())
+{
+    @Html.Label("Search By Name");
+    <p> @Html.TextBox("SearchString")</p>
+    <input type="submit" value="Search" />
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.About)
+        </th>
+        <th>
+            @Html.DisplayName("No Of City")
+        </th>
+        <th>
+            @Html.DisplayName("No Of Dwellers")
+        </th>
+        <th>
+            @Html.DisplayName("Operation")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.Raw(item.About)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.Cities.Count)
+            </td>
+            <td>
+                @item.Cities.Sum(x => x.NoOfDwellers)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+</table>

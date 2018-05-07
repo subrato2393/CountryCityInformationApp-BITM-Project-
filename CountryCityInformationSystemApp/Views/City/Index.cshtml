@@ -1,0 +1,93 @@
+﻿@model IEnumerable<CountryCityInformationSystemApp.Models.City>
+
+@{
+    ViewBag.Title = "Index";
+    var SearchByCountry = ViewBag.SearchByCountry;
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p><br />
+@using (Html.BeginForm())
+{
+    @Html.RadioButton("Name", Model);
+    
+    @Html.Label("City Name");
+    @Html.TextBox("SearchString")
+    <br />
+    <br />
+    @Html.RadioButton("Name", Model);
+    @Html.Label("Country Name");
+    @Html.DropDownList("SearchByCountry", new SelectList(SearchByCountry, "Country"));
+    <br />
+    <br />
+    <input type="submit" value="Search" />
+    <br />
+    <br />
+}
+<table class="table">
+    <tr>
+       
+        <th>
+            @Html.DisplayName("City Name")
+        </th>
+        <th>
+            @Html.DisplayName("About City")
+        </th>
+        <th>
+            @Html.DisplayName("No Of Dwellers")
+        </th>
+        <th>
+            @Html.DisplayName("Location")
+        </th>
+        <th>
+            @Html.DisplayName("Weather")
+        </th>
+        <th>
+            @Html.DisplayName("Country Name")
+        </th>
+        <th>
+            @Html.DisplayName("About Country")
+        </th>
+        <th>
+            @Html.DisplayName("Operation")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.Raw(@item.About)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoOfDwellers)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Weather)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country.Name)
+            </td>
+            <td>
+                @Html.Raw(item.Country.About)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.CityID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.CityID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.CityID })
+            </td>
+        </tr>
+    }
+
+</table>
